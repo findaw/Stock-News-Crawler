@@ -71,10 +71,26 @@ lines_list = tokenize.sent_tokenize(text)    # 텍스트를 문장 단위로 자
 print(lines_list)
 sid = SentimentIntensityAnalyzer()
 
+result = ""
 for article in text_list:
+    noun_list = okt.nouns(article)
+    noun_line = nltk.Text(noun_list)
+    result += f" {article}" 
     for sent in tokenize.sent_tokenize(article):
         ss = sid.polarity_scores(sent)   #문장을 단어별로 분석해서 문장의 pos(긍정)/neu(중립)/neg(부정)에 대한 점수및 종합 점수 계산
         
         print(article)
         print(ss['compound'], ss['pos'], ss['neg'], ss['neu'])
         print()
+
+# print(result)
+# print(words)
+
+result.vocab()
+plt.figure(figsize=(12,7))
+# Plot 한글 글꼴 처리
+path = 'C:\Windows\Fonts\malgunbd.ttf'
+font_name = fm.FontProperties(fname=path).get_name()
+print(font_name)
+plt.rc('font', family=font_name)
+result.plot()

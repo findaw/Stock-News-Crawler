@@ -2,6 +2,7 @@ from crawllib.crawler import Crawler
 from bs4 import BeautifulSoup
 from selenium import webdriver as WebDriver
 import pandas as pd
+import re
 
 search_word = "현대차"
 start_date = "2020.12.20"
@@ -22,6 +23,33 @@ max_page = 4000   # 4000
 : 2) paging시 마지막 page_no 에서 반복문 나가기
 """
 
+# # 노드 탐색
+# def bfs(start_node : BeautifulSoup, match, graph):
+#     visit = list()
+#     queue = list()
+
+#     queue.append(start_node)
+#     while queue:
+#         node = queue.pop(0)
+#         if node not in visit:
+#             visit.append(node)
+#             queue.extend(graph[node])
+#     return visit
+
+    
+
+    # if len(start_node.text) > len(match):
+    #     return start_node
+    # else:
+    #     if start_node.next_sibling is None and len(soupData.children) > 0:
+    #         for child in start_node
+    #         .children:
+    #             search(child, match)
+    #     elif start_node.next_sibling is not None:
+    #         search(start_node.next_sibling, match)
+
+
+
 result = []
 for page_no in range(1,max_page,10):
     url = f'https://search.naver.com/search.naver?where=news&query={search_word}&sort={str(sort_type)}&pd=3&ds={start_date}&de={end_date}&start={page_no}'
@@ -36,10 +64,21 @@ for page_no in range(1,max_page,10):
         print(title_addr['href'])
         print(title_addr['title'])
         print(content.text)
+        
+        news_res = crawler.get_url_data(title_addr['href'])
+        news_detail = BeautifulSoup(news_res.content, 'html.parser')
+        article = search(news_detail, content.text)
+        print(article)
+
         result.append([title_addr['title'] ,title_addr['href'] , content.text])
+        
+
+
+
+
 
 df_news = pd.DataFrame(result, columns=['title', 'link', 'content'])
-df_news.to_csv('data/%s_네이버_뉴스목록_%s~%s.csv'%(search_word, start_date, end_date))
+#df_news.to_csv('data/%s_네이버_뉴스목록_%s~%s.csv'%(search_word, start_date, end_date))
 
 
 
