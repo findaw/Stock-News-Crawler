@@ -16,8 +16,6 @@ for code in set(sise_data.code):
     code_sise_data = sise_data[sise_data.code==code].values
     code_sise_data = code_sise_data[::-1]
     open_sise = 0
-    print(len(code_sise_data))
-    print(type(code_sise_data))
     for i in range(len(code_sise_data)-2, 0, -1):   # 전날 종가대비 오늘 종가 증가율(-4% or 4%)
         close_pre = code_sise_data[i-1][2]          # 전날 종가
         diff_day = code_sise_data[i][3]             # 증가 금액
