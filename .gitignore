@@ -1,5 +1,7 @@
 
 /config
+.vscode
 .vscode/*
-/data
 test.py
+/data/news
+/data/figure
