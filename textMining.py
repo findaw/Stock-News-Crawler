@@ -29,52 +29,56 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer   # 사전 기반 �
 
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator # wordcloud 라이브러리
 
-
-def get_morphs(news_list):
+def get_morphs(news_list, file_name):
 
     #print(df_data['title'])
-
     text_list = news_list['content']   #Series
     print(text_list)    
     okt = Okt()
     total_sentence = []
 
-    # 해당 날짜 뉴스 키워드 추출
+        # 해당 날짜 뉴스 키워드 추출
     for date in set(news_list['date']):
-        date_news_list = news_list[news_list.date == date]
+        try:
+            date_news_list = news_list[news_list.date == date]
+            
+            total_sentence = ' '.join(desc for desc in date_news_list['content']) 
+            total_sentence = okt.nouns(total_sentence)     #형태소 분석(pos tagger)
+
+            print(total_sentence)
+            #total_sentence.vocab()    # 빈도수 체크 FreqDist객체에 담긴다.
         
-        total_sentence = ' '.join(title for title in date_news_list['title'])
-        total_sentence = ' '.join(desc for desc in date_news_list['content']) 
-        total_sentence = okt.morphs(total_sentence, norm=True, stem=True)     #형태소 분석(pos tagger)
-    
-        #total_sentence.vocab()    # 빈도수 체크 FreqDist객체에 담긴다.
-    
-        # 불용어 처리
-        stopword=[':','"', ',', '이','는','은','저','데','근데', '그러나','그리고','는데','하는데','한데','가','저', '=', '.','의', '있다', '을','를', '에','게','에게','에서','에는','돼다','로도','와', '으로']
-        total_sentence = [i for i in total_sentence if i not in stopword]
+            # 불용어 처리
+            # stopword=["'",'"', ')','(','!','?', '+','-', ':','"', ',', '이','는','은','저','데','근데', '그러나','그리고','는데','하는데','한데','가','저', '=', '.','의', '있다', '을','를', '에','게','에게','에서','에는','돼다','로도','와', '으로']
+            # total_sentence = [i for i in total_sentence if i not in stopword]
 
-        # TOP 50 글자
-        counter = Counter(total_sentence)
-        total_sentence_50 = counter.most_common(50)
-    # end : for set(news_list['date'])
+            # TOP 50 글자
+            counter = Counter(total_sentence)
+            total_sentence_50 = counter.most_common(50)
+        # end : for set(news_list['date'])
+            print(total_sentence_50)
+            # word cloud 생성
+            #cloud_mask = np.array(Image.open('마스크이미지.png'))
+            wordcloud = WordCloud(width=2000, height=1200, font_path='c:/Windows/Fonts/malgun.ttf', background_color='black', min_font_size=8, max_font_size=100).generate_from_frequencies(dict(total_sentence_50))
 
-        # word cloud 생성
-        #cloud_mask = np.array(Image.open('마스크이미지.png'))
-        wordcloud = WordCloud(background_color='black', max_font_size=20).generate(total_sentence)
+            plt.figure()
+            plt.axis('off')
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.savefig(f'data/figure/{file_name}_{date}.png')
+            #plt.show()
+        except Exception as e:
+            print(e)
+            continue
 
-        plt.figure()
-        plt.axis('off')
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.show()
+        
 
-
-
-path_dir = 'C:/work/project/NewsCrawler/data/news'
+path_dir = 'D:/ll/bitcamp/project/newsScrapy/data/news'
 file_list = os.listdir(path_dir)
 
 for file_name in file_list:
     df_data = pd.read_csv(f'{path_dir}/{file_name}')
-    get_morphs(df_data)
+    code_name = file_name.split('_')[0]
+    get_morphs(df_data, code_name)
 
 
 # print(okt.normalize(text))  # 정규화 처리

@@ -5,7 +5,7 @@ import requests
 #item_code = pd.read_csv('C:\bitcamp\프로젝트\Naver Finance\sise_market_sum.csv')
 #print(item_code) 
 #삼성전자의 일별 시세 url 가져오기
-item_code = pd.read_csv('sise_market_sum.csv')['code']
+item_code = pd.read_csv('data/sise_market_sum.csv')['code']
 # print(item_code)
 
 result = []

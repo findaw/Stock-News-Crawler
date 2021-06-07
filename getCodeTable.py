@@ -10,4 +10,10 @@ data = pd.merge(rate_best_data, code_table[['단축코드','한글 종목약명'
 data.to_csv('data/급등주포착_최종.csv')
 
 
+sise_data = pd.read_csv('data/sise_day_digit.csv', index_col=[0])
+sise_data.head(5)
+
+data2 = pd.merge(sise_data, code_table[['단축코드','한글 종목약명']], how='left', left_on=['code'], right_on=['단축코드'], sort=True)
+data2.to_csv('data/sise_day_digit_name.csv')
+
 

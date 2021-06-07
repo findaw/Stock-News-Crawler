@@ -16,7 +16,8 @@ for code in set(sise_data.code):
     code_sise_data = sise_data[sise_data.code==code].values
     code_sise_data = code_sise_data[::-1]
     open_sise = 0
-    for i in range(len(code_sise_data)-2, 0, -1):   # 전날 종가대비 오늘 종가 증가율(-4% or 4%)
+    # 전날 종가대비 오늘 종가 증가율(-4% or 4%) 구하기
+    for i in range(len(code_sise_data)-2, 0, -1):   
         close_pre = code_sise_data[i-1][2]          # 전날 종가
         diff_day = code_sise_data[i][3]             # 증가 금액
         rate = diff_day /close_pre                  # 증가율
@@ -30,11 +31,4 @@ result = pd.DataFrame(result, columns=['code','date','rate', 'pre_close', 'close
 result.to_csv('data/급등주포착.csv')
 
 # 전체평균 약 10일에 1번씩 +-4%의 등락율을 보인다
-
-
-
-
-
-
-
 
