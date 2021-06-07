@@ -10,7 +10,7 @@ sise_data = sise_data.drop(sise_data.columns[0], axis=1)
 #sise_data.head(3)
 #sise_data[sise_data['code']==51910].head(3)
 
-sise_data['date'] = pd.to_datetime(sise_data['date'])
+#sise_data['date'] = pd.to_datetime(sise_data['date'])
 sise_data['close'] = sise_data.close.str.split(',').str.join('').astype(int)
 sise_data['diff'] = sise_data['diff'].str.split(',').str.join('').astype(int)
 sise_data['open'] = sise_data.open.str.split(',').str.join('').astype(int)

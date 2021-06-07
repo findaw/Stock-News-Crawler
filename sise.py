@@ -3,7 +3,7 @@ import pandas as pd
 # : sise 정보 데이터 프레임 전처리
 sise_data = pd.read_csv('data/sise_day_digit.csv')
 sise_data = sise_data.drop(sise_data.columns[0], axis=1)
-sise_data['date'] = pd.to_datetime(sise_data['date'])
+#sise_data['date'] = pd.to_datetime(sise_data['date'])
 sise_data.head()
 
 
