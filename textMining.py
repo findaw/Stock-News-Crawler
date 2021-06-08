@@ -1,10 +1,8 @@
 from collections import Counter
-from PIL import Image
-import numpy as np
 import pandas as pd
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+
 
 """
 : download java >= 1.9
@@ -29,19 +27,20 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer   # 사전 기반 �
 
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator # wordcloud 라이브러리
 
-def get_morphs(news_list, file_name):
 
-    #print(df_data['title'])
+def get_morphs(news_list:pd.DataFrame, code_name:str, step:int = 1):
     text_list = news_list['content']   #Series
     print(text_list)    
     okt = Okt()
     total_sentence = []
 
-        # 해당 날짜 뉴스 키워드 추출
+    # 해당 날짜 뉴스 키워드 추출
     for date in set(news_list['date']):
         try:
             date_news_list = news_list[news_list.date == date]
-            
+
+            #''.join(news[news.date=='2021.05.10']['content'].values)
+
             total_sentence = ' '.join(desc for desc in date_news_list['content']) 
             total_sentence = okt.nouns(total_sentence)     #형태소 분석(pos tagger)
 
@@ -64,19 +63,19 @@ def get_morphs(news_list, file_name):
             plt.figure()
             plt.axis('off')
             plt.imshow(wordcloud, interpolation='bilinear')
-            plt.savefig(f'data/figure/{file_name}_{date}.png')
+            plt.savefig(f'data/figure/{code_name}_{date}_{step}.png')
             #plt.show()
         except Exception as e:
             print(e)
             continue
+# end : def get_morphs
 
-        
-
-path_dir = 'D:/ll/bitcamp/project/newsScrapy/data/news'
+path_dir = os.getcwd() +'\data\\news'
 file_list = os.listdir(path_dir)
-
+print(file_list)
+        
 for file_name in file_list:
-    df_data = pd.read_csv(f'{path_dir}/{file_name}')
+    df_data = pd.read_csv(f'{path_dir}\\{file_name}')
     code_name = file_name.split('_')[0]
     get_morphs(df_data, code_name)
 
