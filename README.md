@@ -14,20 +14,20 @@
 <hr/>
 
 ### 파일 설명
-+ sise_market_sum.py
++ sise_market_sum.py<br/>
 `sise_market_sum.csv` 생성
 
-+ sise_pre.py 
++ sise_pre.py<br/>
 sise_day.csv => `sise_day_digit.csv` 생성
 
-+ sise.py 실행
++ sise.py 실행<br/>
 sise_day.digit.csv => `급등주포착.csv` 생성
 
-+ getCodeTable.py 
++ getCodeTable.py <br/>
 급등주포착.csv => `급등주포착_최종.csv` 생성<br/> 
 sese_day_digit.csv => `sise_day_digit_name.csv` 생성
 
-+ newsList.py
++ newsList.py<br/>
 뉴스 목록 가져오기 
 
 <hr/>
