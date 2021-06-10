@@ -1,5 +1,5 @@
 
-## Python 뉴스 본문 크롤링
+## Python Web Scraping Project
 
 
 ### 수집/생성한 자료 목록
@@ -15,21 +15,28 @@
 
 ### 파일 설명
 + sise_market_sum.py
-> out : sise_market_sum.csv
+`sise_market_sum.csv` 생성
 
-+ sise_pre.py 실행
-> in : sise_day.csv<br/>
-> out : sise_day_digit.csv 
++ sise_pre.py 
+sise_day.csv => `sise_day_digit.csv` 생성
 
 + sise.py 실행
-> in : sise_day.digit.csv<br/>
-> out : 급등주포착.csv
+sise_day.digit.csv => `급등주포착.csv` 생성
 
-+ getCodeTable.py 실행
-> in : 급등주포착.<br/>
-> out : 급등주포착_최종.csv<br/>
-> in : sese_day_digit.csv<br/>
-> out : sise_day_digit_name.csv
++ getCodeTable.py 
+급등주포착.csv => `급등주포착_최종.csv` 생성<br/> 
+sese_day_digit.csv => `sise_day_digit_name.csv` 생성
+
++ newsList.py
+뉴스 목록 가져오기 
+
+<hr/>
+
+### 앞으로 구현할 추가 기능
+- [ ] 뉴스 본문 추출
+- [ ] 뉴스 데이터 전처리 및 워드 
+- [ ] 클라우드 결과 개선
+- [ ] 커스텀 캔들차트
 
 
 
