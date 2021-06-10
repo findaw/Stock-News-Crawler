@@ -8,8 +8,6 @@ for code in set(rate_best_data.code):
     mark = rate_best_data.code==code
     rate_best_data[mark]
     try:
-
-        code_sise_data = rate_best_data[mark].values
         search_word = rate_best_data[mark]
         search_word = search_word['한글 종목약명']    # Series
         search_word = list(search_word.values)[0].replace('보통주','').strip()  # index 매치가 안되어서 list로 형변환
