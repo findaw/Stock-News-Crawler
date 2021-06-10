@@ -12,7 +12,6 @@ for page in range(1, 11):
     for item in soup_data.select('.type_2 tbody tr'): # only tr / css selector 
         try:
             for title in item.select('a.tltle'):   # class="center" [class 가 center이 아닌 td tag ]
-         
                 count+=1
                 print('item_name = ',title.text) 
                 print('종합정보 주소:', orginal_url + title['href'])
