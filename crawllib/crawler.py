@@ -13,7 +13,7 @@ class Crawler():
         self.sort_type = Crawler.Sort_Best
 
     def get_url_data(self, url='') -> Response:
-        if url == '':
+        if (url == '' ) and (self.url != ''):
             url = self.url
         headers = {'User-Agent' : 'Mozilla/5.0',}
         try:
