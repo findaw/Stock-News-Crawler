@@ -1,8 +1,11 @@
 ## 클리앙 주식한당 스크래핑
 
+
+import time
 from bs4 import BeautifulSoup
 from crawllib.crawler import Crawler
 import pandas as pd
+from requests.exceptions import SSLError
 
 origin_url = 'https://www.clien.net'
 result = []
@@ -24,13 +27,19 @@ for page in range(1370):
             datetime = soupData.select('.fa.fa-clock-o')[0].nextSibling.strip()     # datetime
             content = soupData.select('.post_article')[0].text.strip()
             result.append([category, datetime, title, content])
-        except Exception as e:
+        except Exception or SSLError as e:
             print('[Error]', e)
             continue
+        except:
+            print('[Error]', e)
+            continue
+        finally:
+            time.sleep(6000)
+
     
 
 df = pd.DataFrame(result, columns=['category', 'datetime', 'title', 'content'])
-df.to_excel('data/clien_stock_board.xlsx')
+df.to_csv('data/clien_stock_board.xlsx', sep='@')
 
 
 
