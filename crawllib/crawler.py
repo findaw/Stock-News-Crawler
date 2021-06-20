@@ -38,8 +38,7 @@ class NewsCrawler(Crawler):
         for page_no in range(1, self.MAX_PAGE, 10):
                 url = f'https://search.naver.com/search.naver?where=news&query={search_word}&sort={str(sort_type)}&pd=3&ds={start_date}&de={end_date}&start={page_no}'
                 print(url)
-                crawler = Crawler()
-                res = crawler.get_url_data(url)
+                res = self.get_url_data(url)
                 soupData = BeautifulSoup(res.content, 'html.parser')
                 news_list = soupData.select('.news_tit')
                 desc = soupData.select('.api_txt_lines.dsc_txt_wrap')

@@ -40,14 +40,16 @@ for code in item_code:
             if date == '2011.01.04':
                 stop_loop = True
                 break
+        
+        if (stop_loop):
+            break
+        
         if sise_row != pre_data:
                 result.append(sise_row)
                 pre_data = sise_row
         else:
             break
 
-        if (stop_loop):
-            break
         
 
 # result - dataframe 

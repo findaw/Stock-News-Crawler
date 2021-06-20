@@ -10,7 +10,7 @@ kospi_top = pd.read_csv('data/sise_market_sum.csv', index_col=[0])[:top_no]
 
 def worker(data, start_index):
     start_date = dt.strptime('20110119', '%Y%M%d')  
-    end_date = dt.strptime('20110125', '%Y%M%d')
+    end_date = dt.strptime('20210619', '%Y%M%d')
     for index in range(start_index,start_index+1):
         try:
             search_word, code = data.title[index], data.code[index]
@@ -38,13 +38,13 @@ def worker(data, start_index):
 
 if __name__ == '__main__':
     procs = []
-    for n in range(top_no):
+    for n in range(3,top_no):
         index = n
         data = kospi_top[index:index+1]
-        worker(data, index)
-        # proc = Process(target =worker, args=(data, index))
-        # procs.append(proc)
-        # proc.start()
+        # worker(data, index)
+        proc = Process(target =worker, args=(data, index))
+        procs.append(proc)
+        proc.start()
 
-    # for proc in procs:
-    #     proc.join()
+    for proc in procs:
+        proc.join()
