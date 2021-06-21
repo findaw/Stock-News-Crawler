@@ -8,14 +8,13 @@ item_code = pd.read_csv('data/sise_code_Top50.csv', dtype={'code':str})['code'][
 print(item_code)
 for code in item_code:
     stop_loop = False    # stop_loop 정의
-    last_page_date = ""
+    last_page_date = "9999-99-99"
     for page in count(1):
         url = f'https://finance.naver.com/item/frgn.nhn?code={code}&page={page}'
         html = requests.get(url, headers = {'User-Agent':'Mozilla/5.0'})
         soup_data = BeautifulSoup(html.content,'html.parser') 
         table = soup_data.findAll('table',{'class':'type2'})[1]  # table 원하는 것 찾기. 
-
-        for item in table.select('tr:not(.title1)'):
+        for item in table.select('tr')[2:]:
             item = item.select('td span')  # item = span list 
             if item == []:                # block은 colon 
                 continue 
@@ -29,7 +28,7 @@ for code in item_code:
 
                 print(item[0].text)
                 # 2021.06.18부터 2011.01.01 찾아보기
-                result.append([num.text.strip() for num in item])
+                result.append([code] + [num.text.strip() for num in item])
 
                 if item[0].text == '2011.01.03':    
                     stop_loop = True    
@@ -37,6 +36,6 @@ for code in item_code:
                 
         if (stop_loop):            # 이중반복문 out 
             break
-result = pd.DataFrame(result, columns = ['date', 'close', 'diff', 'diff_rate',
+result = pd.DataFrame(result, columns = ['code', 'date', 'close', 'diff', 'diff_rate',
                         'volume', ' int_dff', 'frgn_dff', 'frgn_share', 'frgn_rate'])
 result.to_csv('data/frgn_invest_Top10.csv')
