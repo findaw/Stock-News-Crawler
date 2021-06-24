@@ -17,7 +17,7 @@ def get_keywords(data, filter_words :list , n=50) -> list:
     def filter_keyword(text, func, filter_word, stopwords):
         word_list = func(text)
         stopwords += [*filter_word]
-        return [i for i in word_list if i not in stopwords and len(i) > 1]
+        return [i for i in word_list if i not in stopwords and len(i) > 1 and len(i) < 10]
 
     def get_most_common(wlist, n=50):
         counter = Counter(wlist)

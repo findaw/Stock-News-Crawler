@@ -7,3 +7,5 @@ test.*
 /data/figure
 __pycache__
 .ipynb_checkpoints
+analysis
+data/keyword
