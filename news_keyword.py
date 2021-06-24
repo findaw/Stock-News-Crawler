@@ -35,22 +35,24 @@ if __name__ == '__main__':
     procs = []
     
     # """하락 키워드 추출"""
-    start_list = ['2011.08.01', '2012.05.09', '2013.06.07', '2014.06.13', '2015.04.17',
-    '2016.01.22', '2017.07.28', '2017.11.17','2018.01.01','2019.04.12','2020.02.21']
-    end_list = ['2011.08.19', '2012.09.08', '2013.07.05','2014.10.17','2015.08.28',
-    '2016.03.25', '2017.08.11','2018.02.09','2018.02.09','2019.05.17','2020.03.20']
-    for start, end in zip(start_list, end_list):
-        proc = Process(target =get_news_date_range, args=(news_list, target, start, end, -1))
-        procs.append(proc)
-        proc.start()
-
-    # # """상승 키워드 추출"""
-    # start_list = ['2011.08.26', '' ]
-    # end_list = ['2011.08.19', ]
+    # start_list = ['2011.08.01', '2012.05.09', '2013.06.07', '2014.06.13', '2015.04.17',
+    # '2016.01.22', '2017.07.28', '2017.11.17','2018.01.01','2019.04.12','2020.02.21']
+    # end_list = ['2011.08.19', '2012.09.08', '2013.07.05','2014.10.17','2015.08.28',
+    # '2016.03.25', '2017.08.11','2018.02.09','2018.02.09','2019.05.17','2020.03.20']
     # for start, end in zip(start_list, end_list):
-    #     proc = Process(target =get_news_date_range, args=(news_list, start, end, 1))
+    #     proc = Process(target =get_news_date_range, args=(news_list, target, start, end, -1))
     #     procs.append(proc)
     #     proc.start()
+
+    # # """상승 키워드 추출"""
+    start_list =['2011.08.26', '2012.02.17', '2012.07.13', '2013.08.16', '2014.10.31', '2015.09.25',
+    '2017.09.08', '2018.03.09', '2019.01.11', '2019.08.30', '2020.11.26' ]
+    end_list = ['2011.11.04', '2012.04.06', '2012.08.10', '2013.09.13', '2014.12.05', '2015.10.30',
+    '2017.09.22', '2018.03.16', '2019.02.01', '2019.09.20', '2020.12.31']
+    for start, end in zip(start_list, end_list):
+        proc = Process(target =get_news_date_range, args=(news_list, target, start, end, 1))
+        procs.append(proc)
+        proc.start()
 
     for proc in procs:
         proc.join()

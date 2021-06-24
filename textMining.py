@@ -63,7 +63,7 @@ def get_morphs(news_list:pd.DataFrame, code_name:str, step:int = 1):
             plt.figure()
             plt.axis('off')
             plt.imshow(wordcloud, interpolation='bilinear')
-            plt.savefig(f'data/figure/{code_name}_{date}_{step}.png')
+            plt.savefig(f'data/keyword/figures/{code_name}_{date}_{step}.png')
             #plt.show()
         except Exception as e:
             print(e)
