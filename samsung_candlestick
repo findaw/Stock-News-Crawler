@@ -1,0 +1,38 @@
+from mpl_finance import candlestick2_ohlc
+import matplotlib.ticker as ticker
+import matplotlib.pyplot as plt
+from datetime import datetime
+import pandas as pd
+import numpy as np
+
+
+fig = plt.figure(figsize=(20,10))
+fig.set_facecolor('w')
+ax = fig.add_subplot(111)
+
+# index 날짜 지정
+day_list = []
+name_list = []
+for i, day in enumerate(samsung_range_2018_up.index):
+    if day.dayofweek == 0:
+        day_list.append(i)
+        name_list.append(day.strftime('%Y-%m-%d'))
+
+ax.xaxis.set_major_locator(ticker.FixedLocator(day_list))
+ax.xaxis.set_major_formatter(ticker.FixedFormatter(name_list))
+# X축 티커 숫자 60개로 제한
+ax.xaxis.set_major_locator(ticker.MaxNLocator(60))
+plt.xticks(rotation = 45)
+
+# 그래프 title과 축 이름 지정
+ax.set_title('SAMSUNG ELECTRONICS 2018', fontsize=30)
+ax.set_xlabel('날짜')
+
+# 캔들차트 그리기
+candlestick2_ohlc(ax, samsung_range_2018_up['open'], samsung_range_2018_up['high'], 
+                 samsung_range_2018_up['low'], samsung_range_2018_up['close'],
+                  width=0.5, colorup='r', colordown='b')
+
+
+plt.grid(True)
+plt.show()
